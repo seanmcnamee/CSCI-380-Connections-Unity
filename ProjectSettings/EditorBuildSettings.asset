@@ -23,9 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoginPage.unity
     guid: 79e44624e96cf4146aa5b2ebe0f82aab
-  - enabled: 1
-    path: Assets/Scenes/NEW_USER_Q&A.unity
-    guid: d21f3b27bb4a9c34a8afc789f5e35f0d
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/NEW_USER_Q_A.unity
     guid: 492032c35e1754a4ebd007b2454da407
