@@ -10,6 +10,8 @@ namespace SecAuth
         public static void Register(string firstName, string lastName, string password, User.UserType userType, string email, string homeSchool, string[] schools=null) {
             password = PasswordEncryption(password);
             string verificationCode = GenerateVerificationCode();
+            //TODO make sure the email is an actual email
+            
             // TODO Store user info into database
 
 
