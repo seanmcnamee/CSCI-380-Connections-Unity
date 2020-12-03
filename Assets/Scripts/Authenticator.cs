@@ -7,6 +7,7 @@ namespace SecAuth
     class Authentication
     {
         private static Random randomNum = new Random();
+
         public static void Register(string firstName, string lastName, string password, User.UserType userType, string email, string homeSchool, string[] schools=null) {
             password = PasswordEncryption(password);
             string verificationCode = GenerateVerificationCode();
@@ -73,7 +74,10 @@ namespace SecAuth
                 // TODO grab all the schools from the database
                 string[] schoolNames = null;
 
-                return new User(userName, userType, isVerified, email, schoolNames);
+                User newUser = new User(userName, userType, isVerified, email, schoolNames);
+
+                Data.StaticUser = newUser;
+                return newUser;
             }
             return null;
         }
