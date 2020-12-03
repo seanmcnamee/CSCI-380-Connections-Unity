@@ -1444,6 +1444,7 @@ GameObject:
   - component: {fileID: 1624268085}
   - component: {fileID: 1624268084}
   - component: {fileID: 1624268083}
+  - component: {fileID: 1624268086}
   m_Layer: 5
   m_Name: School Selection
   m_TagString: Untagged
@@ -1568,6 +1569,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624268081}
   m_CullTransparentMesh: 0
+--- !u!114 &1624268086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624268081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e05907411ac6b40bc309dfac25a644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSwitch: 
 --- !u!1 &1648856413
 GameObject:
   m_ObjectHideFlags: 0

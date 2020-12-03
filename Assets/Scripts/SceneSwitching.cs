@@ -7,14 +7,11 @@ public class SceneSwitching : MonoBehaviour
 {
     [SerializeField]
     private string menuSwitch = null;
-[SerializeField]	
-private Dropdown dropdown = null;
+    //private  = null;
+
     public void SwitchToMenu()
     {
         SceneManager.LoadScene(menuSwitch);
     }
-	public void switchfromdropdown()
-	{
-		SceneManager.LoadScene(dropdown.OptionData().text);
-	}
+    
 }
