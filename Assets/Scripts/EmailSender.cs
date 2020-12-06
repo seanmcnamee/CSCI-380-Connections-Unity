@@ -4,7 +4,7 @@ using System.Net;
 
 namespace SecAuth {
     public class EmailSender {
-            public static void sendEmailTo(string toEmail, string subject, string body) {
+            public static void SendEmailTo(string toEmail, string subject, string body) {
             //Thanks to docs.microsoft.com
             body += "\n\nRegards,\n" +
             "College Connections Team";

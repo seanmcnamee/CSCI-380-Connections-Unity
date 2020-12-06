@@ -2,11 +2,13 @@ using System;
 using System.Net.Mail;
 using System.Net;
 
+using UnityEngine;
+
 namespace SecAuth
 {
-    class Authentication
+    class Authentication : MonoBehaviour
     {
-        private static Random randomNum = new Random();
+        private static System.Random randomNum = new System.Random();
 
         public static void Register(string firstName, string lastName, string password, User.UserType userType, string email, string homeSchool, string[] schools=null) {
             password = PasswordEncryption(password);
@@ -34,12 +36,12 @@ namespace SecAuth
 
             }
             //Send email to advisor
-            sendAuthenticationEmail(emailOfVerifier, homeSchool, firstName, lastName, verificationCode);
+            sendAuthenticationEmail(emailOfVerifier, homeSchool, firstName, lastName, email, verificationCode);
         }
 
         private static string PasswordEncryption(string password) {
             // TODO make an encryption system
-            return null;
+            return password;
         }
 
         private static string GenerateVerificationCode() {
@@ -49,21 +51,34 @@ namespace SecAuth
             return numNumberCode.ToString();
         }
 
-        public static void sendAuthenticationEmail(string toEmail, string homeSchool, string firstName, string lastName, string verificationCode) {
+        public static void sendAuthenticationEmail(string toEmail, string homeSchool, string firstName, string lastName, string newUserEmail, string verificationCode) {
             //Thanks to docs.microsoft.com
             string subject = "College Connections Verification Code";
             string body = "Hello " + homeSchool + " Advisor,\n\n" +
             "This user needs verification: " + firstName + " " + lastName +  
+            "\nTheir email is: " + newUserEmail +
             "\nThis is their verification code: " + verificationCode;
 
-            EmailSender.sendEmailTo(toEmail, subject, body);
+            EmailSender.SendEmailTo(toEmail, subject, body);
+        }
+
+        public static bool VerifyAccount(string firstName, string lastName, string verificationCode) {
+            // TODO grab verification code from Database
+            string verificationCodeFromDB = "test";
+            if (verificationCodeFromDB.Equals(verificationCode)) {
+                // TODO Update verification code in database
+                string verifiedString = User.verifiedString;
+
+                return true;
+            }
+            return false;
         }
 
         public static User Login(string username, string password) {
             // TODO grab from Database
             string passFromDB = "test";
 
-            if (passFromDB.Equals(password)) {
+            if (PasswordEncryption(passFromDB).Equals(password)) {
                 // TODO grab the user info from the Database
                 string userName = null;
                 User.UserType userType = User.UserType.CollegeModerator;
@@ -76,7 +91,7 @@ namespace SecAuth
 
                 User newUser = new User(userName, userType, isVerified, email, schoolNames);
 
-                Data.StaticUser = newUser;
+                SceneInstanceControl.User = newUser;
                 return newUser;
             }
             return null;

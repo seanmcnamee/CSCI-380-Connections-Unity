@@ -315,6 +315,7 @@ GameObject:
   - component: {fileID: 319078808}
   - component: {fileID: 319078807}
   - component: {fileID: 319078810}
+  - component: {fileID: 319078811}
   m_Layer: 5
   m_Name: Login
   m_TagString: Untagged
@@ -396,6 +397,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 319078811}
+        m_MethodName: updateButtonStatus
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &319078808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +458,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuSwitch: LoginPage
+--- !u!114 &319078811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319078805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 834608d1cbe57514f8b1982b82129f37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loggedInOnly: {fileID: 0}
 --- !u!1 &422566219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1273,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1973980382}
   m_OnClick:
     m_PersistentCalls:

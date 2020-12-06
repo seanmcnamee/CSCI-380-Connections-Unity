@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e05907411ac6b40bc309dfac25a644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuSwitch: ChatSelector
+  menuSwitch: MainMenu
 --- !u!1 &223580265
 GameObject:
   m_ObjectHideFlags: 0

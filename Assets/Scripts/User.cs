@@ -5,13 +5,16 @@ namespace SecAuth
 {
     public class User
     {
+        public static string verifiedString = "Verified";
+
         public enum UserType {
             HighSchooler, CollegeModerator, Advisor, Developer
         }
-        private string userName {get;}
+
+        public string userName {get;}
         private UserType userType {get;}
-        private string isVerified {get;}
-        private string email {get;}
+        private string isVerified;
+        private string email;
         private string[] schoolNames;
         public List<string> messages { get;}
 
@@ -24,12 +27,12 @@ namespace SecAuth
             this.messages = new List<string>();
         }
 
-        public bool canChatIn(string schoolName) {
+        public bool CanChatIn(string schoolName) {
             var index = Array.FindIndex(schoolNames, x => x == schoolName);
             return index != -1;
         }
 
-        public void sendMessageHistory() {
+        public void SendMessageHistory() {
             string subject = "College Connections Message Log";
             string body = "Hello " + this.userName + ",\n\n" +
             "This is your message history from " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n";
@@ -37,7 +40,27 @@ namespace SecAuth
             foreach (string message in messages) {
                 body += message + "\n";
             }
-            EmailSender.sendEmailTo(this.email, subject, body);
+            EmailSender.SendEmailTo(this.email, subject, body);
+        }
+
+        public bool IsHighSchooler() {
+            return this.userType == UserType.HighSchooler;
+        }
+
+        public bool IsCollegeModerator() {
+            return this.userType == UserType.CollegeModerator;
+        }
+
+        public bool IsAdvisor() {
+            return this.userType == UserType.Advisor;
+        }
+
+        public bool IsDeveloper() {
+            return this.userType == UserType.Developer;
+        }
+
+        public bool IsVerified() {
+            return this.isVerified.Equals(verifiedString);
         }
     }
 }
