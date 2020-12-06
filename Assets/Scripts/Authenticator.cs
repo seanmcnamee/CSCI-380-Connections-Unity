@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SecAuth
 {
-    class Authentication : MonoBehaviour
+    public class Authenticator : MonoBehaviour
     {
         private static System.Random randomNum = new System.Random();
 
@@ -80,18 +80,17 @@ namespace SecAuth
 
             if (PasswordEncryption(passFromDB).Equals(password)) {
                 // TODO grab the user info from the Database
-                string userName = null;
                 User.UserType userType = User.UserType.CollegeModerator;
 
-                string isVerified = null;
+                string isVerified = User.verifiedString; //TODO DON't DEFAULT AS VERIFIED
                 string email = null;
                 
                 // TODO grab all the schools from the database
                 string[] schoolNames = null;
 
-                User newUser = new User(userName, userType, isVerified, email, schoolNames);
+                User newUser = new User(username, userType, isVerified, email, schoolNames);
 
-                SceneInstanceControl.User = newUser;
+                //SceneInstanceControl.User = newUser;
                 return newUser;
             }
             return null;
