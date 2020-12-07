@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuSwitch: MainMenu
+  dropdown: {fileID: 0}
 --- !u!114 &269006195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,7 +706,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NYIT
+  m_Text: Select Chat Room
 --- !u!222 &577229703
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -996,7 +997,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e05907411ac6b40bc309dfac25a644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuSwitch: NYIT Chat
+  menuSwitch: NYIT
+  dropdown: {fileID: 0}
 --- !u!114 &686979783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1522,6 +1524,8 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: Select Chat Room
+      m_Image: {fileID: 0}
     - m_Text: NYIT
       m_Image: {fileID: 0}
     - m_Text: MIT
@@ -1530,7 +1534,18 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1624268086}
+        m_MethodName: SwitchFromDropdown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1624268084
 MonoBehaviour:
@@ -1582,6 +1597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuSwitch: 
+  dropdown: {fileID: 1624268083}
 --- !u!1 &1648856413
 GameObject:
   m_ObjectHideFlags: 0

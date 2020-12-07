@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 46749251}
   - component: {fileID: 46749250}
   - component: {fileID: 46749249}
+  - component: {fileID: 46749253}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -224,6 +225,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &46749253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46749248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 834608d1cbe57514f8b1982b82129f37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loggedInOnly:
+  - {fileID: 1973980381}
+  loggedOutOnly:
+  - {fileID: 319078807}
+  - {fileID: 422566221}
 --- !u!1 &291490650
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +488,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834608d1cbe57514f8b1982b82129f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loggedInOnly: {fileID: 1973980381}
+  loggedInOnly: []
+  loggedOutOnly: []
 --- !u!1 &422566219
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +885,6 @@ GameObject:
   - component: {fileID: 1061341964}
   - component: {fileID: 1061341963}
   - component: {fileID: 1061341962}
-  - component: {fileID: 1061341965}
   m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
@@ -932,22 +950,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1061341963}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1061341965}
-        m_MethodName: updateButtonStatus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1061341963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,19 +992,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061341960}
   m_CullTransparentMesh: 0
---- !u!114 &1061341965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061341960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 834608d1cbe57514f8b1982b82129f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loggedInOnly: {fileID: 1973980381}
 --- !u!1 &1308222267
 GameObject:
   m_ObjectHideFlags: 0
