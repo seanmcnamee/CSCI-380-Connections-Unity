@@ -21,7 +21,7 @@ namespace SecAuth
             //Storing USER-SCHOOL values if needed
             if (schools != null) {
                 foreach (string school in schools) {
-                    // TODO Store Username and School in USER-SCORE
+                    // TODO Store Username and School in USER-SCHOOL
 
                 }
             }
