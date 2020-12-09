@@ -17,7 +17,7 @@ namespace SecAuth
             string username = firstName.text + lastName.text;
             string userPassword = password.text;
             Debug.Log("User-pass: " + username + ", " + userPassword);
-            SceneInstanceControl.User = Authenticator.Login(username, userPassword);
+            SceneInstanceControl.User = Authenticator.Login(firstName.text, lastName.text, userPassword);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Net.Mail;
 using System.Net;
 
 using UnityEngine;
+using DB;
 
 namespace SecAuth
 {
@@ -74,11 +75,16 @@ namespace SecAuth
             return false;
         }
 
-        public static User Login(string username, string password) {
+        public static User Login(string firstName, string lastName, string password) {
             // TODO grab from Database
-            string passFromDB = "test";
+            Queries conn = new Queries();
+            string passFromDB = conn.getPassword(firstName, lastName);
+            conn.closeConenction();
+            
 
             if (PasswordEncryption(passFromDB).Equals(password)) {
+                Debug.Log("PASSWORD MATCHED!!!: " + passFromDB + " same as given " + password);
+
                 // TODO grab the user info from the Database
                 User.UserType userType = User.UserType.CollegeModerator;
 
@@ -88,11 +94,12 @@ namespace SecAuth
                 // TODO grab all the schools from the database
                 string[] schoolNames = null;
 
-                User newUser = new User(username, userType, isVerified, email, schoolNames);
+                User newUser = new User(firstName+lastName, userType, isVerified, email, schoolNames);
 
                 //SceneInstanceControl.User = newUser;
                 return newUser;
             }
+            Debug.Log("PASSWORD: " + passFromDB + " didn't match :(");
             return null;
         }
     }
