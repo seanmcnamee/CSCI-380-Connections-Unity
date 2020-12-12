@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Data;
 
 namespace SecAuth {
     public class SceneInstanceControl : MonoBehaviour {

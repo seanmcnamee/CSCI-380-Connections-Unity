@@ -242,6 +242,7 @@ MonoBehaviour:
   loggedOutOnly:
   - {fileID: 319078807}
   - {fileID: 422566221}
+  - {fileID: 1973980381}
 --- !u!1 &291490650
 GameObject:
   m_ObjectHideFlags: 0

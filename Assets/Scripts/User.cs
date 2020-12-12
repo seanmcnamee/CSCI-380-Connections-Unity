@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace SecAuth
+using SecAuth;
+
+namespace Data
 {
     public class User
     {

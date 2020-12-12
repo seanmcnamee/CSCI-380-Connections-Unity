@@ -4,6 +4,7 @@ using System.Net;
 
 using UnityEngine;
 using DB;
+using Data;
 
 namespace SecAuth
 {
@@ -14,16 +15,17 @@ namespace SecAuth
         public static void Register(string firstName, string lastName, string password, User.UserType userType, string email, string homeSchool, string[] schools=null) {
             password = PasswordEncryption(password);
             string verificationCode = GenerateVerificationCode();
-            //TODO make sure the email is an actual email
-            
-            // TODO Store user info into database
 
+            //Store user info into database
+            Queries conn = new Queries();
+            conn.insertUser(firstName, lastName, password, userType, verificationCode, email);
+            
 
             //Storing USER-SCHOOL values if needed
             if (schools != null) {
                 foreach (string school in schools) {
-                    // TODO Store Username and School in USER-SCHOOL
-
+                    //Store Username and School in USER-SCHOOL
+                    conn.insertUserSchool(school, firstName, lastName);
                 }
             }
 
@@ -31,11 +33,15 @@ namespace SecAuth
             string emailOfVerifier = null;
             if (userType == User.UserType.HighSchooler || userType == User.UserType.CollegeModerator) {
                 // TODO get email of advisor (using homeschool to find them)
-                
+                emailOfVerifier = conn.getAdvisorEmail(homeSchool);
             } else {
                 // TODO get email of developer (search for developer userType)
-
+                emailOfVerifier = conn.getDeveloperEmail();
             }
+
+            conn.closeConenction();
+
+
             //Send email to advisor
             sendAuthenticationEmail(emailOfVerifier, homeSchool, firstName, lastName, email, verificationCode);
         }
@@ -66,48 +72,44 @@ namespace SecAuth
         public bool IsValidEmail(string email) {
             MailAddress address;
             try {
-                MailAddress address = new MailAddress(email);
-            } finally {
-                return address != null && address.Address = email;
+                address = new MailAddress(email);
+                return (address.Address == email);
+            } catch {
+               return false; 
             }
         }
 
         public static bool VerifyAccount(string firstName, string lastName, string verificationCode) {
-            // TODO grab verification code from Database
-            string verificationCodeFromDB = "test";
+            Queries conn = new Queries();
+
+            //grab verification code from Database
+            string verificationCodeFromDB = conn.getVerification(firstName, lastName);
+
             if (verificationCodeFromDB.Equals(verificationCode)) {
                 // TODO Update verification code in database
-                string verifiedString = User.verifiedString;
-
+                conn.setVerified(firstName, lastName);
+                
+                conn.closeConenction();
                 return true;
             }
+
+            conn.closeConenction();
             return false;
         }
 
         public static User Login(string firstName, string lastName, string password) {
-            // TODO grab from Database
+            //Grab password from Database
             Queries conn = new Queries();
             string passFromDB = conn.getPassword(firstName, lastName);
-            conn.closeConenction();
             
-
             if (PasswordEncryption(passFromDB).Equals(password)) {
                 Debug.Log("PASSWORD MATCHED!!!: " + passFromDB + " same as given " + password);
-
-                // TODO grab the user info from the Database
-                User.UserType userType = User.UserType.CollegeModerator;
-
-                string isVerified = User.verifiedString; //TODO DON't DEFAULT AS VERIFIED
-                string email = null;
+                User user = conn.getUser(firstName, lastName);
                 
-                // TODO grab all the schools from the database
-                string[] schoolNames = null;
-
-                User newUser = new User(firstName+lastName, userType, isVerified, email, schoolNames);
-
-                //SceneInstanceControl.User = newUser;
-                return newUser;
+                conn.closeConenction();
+                return user;
             }
+            conn.closeConenction();
             Debug.Log("PASSWORD: " + passFromDB + " didn't match :(");
             return null;
         }
