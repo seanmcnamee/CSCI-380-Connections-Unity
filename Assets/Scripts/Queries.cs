@@ -12,7 +12,7 @@ namespace DB {
         private MySqlCommand myCommand;
 
         public Queries() {
-            Console.WriteLine("Opening Connectin...");
+            Console.WriteLine("Opening Connection...");
 
             this.myConnection = new MySqlConnection(connString);
             this.myConnection.Open();
@@ -40,11 +40,52 @@ namespace DB {
             prepareAndRunStatement(userInsert);
         }
 
+        public void insertSchool(string school, string firstName, string lastName){
+            string insertSchool = "insert into `csci380`.`school` (school, advisorFirstName, advisorLastName) VALUES (' " + school + ' ", ' + firstName + " ' " + lastName " ') ";
+            prepareAndRunStatement(insertSchool);
+        }
+
+        public void insertUserSchool(string school, string firstName, string lastName){
+            string insertUS = "insert into `csci380`.`user-school` (firstName, lastName, schoolName) VALUES (' " + firstName + ' ", ' + lastName + " ' " + school " ') ";
+        }
+
+        public string getVerification(string firstName, string lastName){
+            string getCode = "select isVerified FROM `csci380`.`user` WHERE (firstName, lastName)=(' " + firstName + ' ", '  + lastName + " ');";
+            MySqlDataReader dataReader = prepareAndRunQuery(getCode);
+            dataReader.Read();
+            return dataReader["verification code"] + "";
+        }
+
+        public string getGeneralInfo(string firstName, string lastName){
+            string getInfo = "select type, isVerified, email FROM `csci380`.`user` WHERE (firstName, lastName)=(' " + firstName + ' ", '  + lastName " ');";
+            MySqlDataReader dataReader = prepareAndRunQuery(getInfo);
+            dataReader.Read();
+            return dataReader["isVerfied and email"] + "";
+        }
+
+        public string getSchool(string school){
+            string getSchool = "select school FROM 'csci380', 'school' WHERE (school)=(' " + school " ');";
+            MySqlDataReader dataReader = prepareAndRunQuery(getSchool);
+            dataReader.Read();
+            return dataReader["school"] + "";
+        }
+
+        public string getAdvisorEmail(string advisorFirstName, string advisorLastName, string school){
+            string getAdvisorEmail = "select email FROM `csci380`.`user` WHERE (firstName, lastName)=(select ' " + advisorFirstName + ' ", ' +advisorLastName " ' FROM `csci380`.`school` WHERE school=' "school');";
+            MySqlDataReader dataReader = prepareAndRunQuery(getAdvisorEmail);
+            dataReader.Read();
+            return dataReader["advisor email"] + "";
+        }
+
         public string getPassword(string firstName, string lastName) {
             string userInsert = "select password FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(userInsert);
             dataReader.Read();
             return dataReader["password"] + "";
+        }
+
+        public string getSchools(string firstName, string lastName){
+            string getSchools = "select schoolName FROM `csci380`.`user-school` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
         }
     }
 }
