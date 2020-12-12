@@ -476,6 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuSwitch: LoginPage
+  dropdown: {fileID: 0}
 --- !u!114 &319078811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,7 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e05907411ac6b40bc309dfac25a644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuSwitch: NEW_USER_Q_A
+  menuSwitch: Register
+  dropdown: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,3 +1360,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuSwitch: ChatSelector
+  dropdown: {fileID: 0}

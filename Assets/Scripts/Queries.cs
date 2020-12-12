@@ -29,10 +29,12 @@ namespace DB {
             this.myCommand.ExecuteNonQuery();
             //MySqlDataReader test;
         }
-
+        
         private MySqlDataReader prepareAndRunQuery(string statement) {
             this.myCommand.CommandText = statement;
-            return this.myCommand.ExecuteReader();
+            MySqlDataReader dataReader = this.myCommand.ExecuteReader();
+            dataReader.Read(); //TODO if this fucks up move back into calling method
+            return dataReader;
         }
 
         public void insertUser() {
@@ -43,7 +45,6 @@ namespace DB {
         public string getPassword(string firstName, string lastName) {
             string userInsert = "select password FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(userInsert);
-            dataReader.Read();
             return dataReader["password"] + "";
         }
     }
