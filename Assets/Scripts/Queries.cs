@@ -85,10 +85,14 @@ namespace DB {
             return dataReader["password"] + "";
         }
 
-        public string getSchools(string firstName, string lastName){
+        public ArrayList getSchools(string firstName, string lastName){
             string getSchools = "select schoolName FROM `csci380`.`user-school` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
+            MySqlDataReader dataReader = prepareAndRunQuery(userInsert);
+            ArrayList schools = new ArrayList();
+            do {
+                schools.Add(dataReader['school']);
+            } while (dataReader.Read());
+            return schools;
         }
-
-        //test from sean
     }
 }
