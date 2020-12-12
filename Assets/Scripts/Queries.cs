@@ -37,18 +37,21 @@ namespace DB {
             return dataReader;
         }
 
+        //Example with no variables
         public void insertUser() {
             string userInsert = "insert into `csci380`.`user` (firstName, lastName, password, type, isVerified, email) VALUES ('testUnity', 'LastName', 'test', 'HighSchooler', '12345', 'BSEmail');";
             prepareAndRunStatement(userInsert);
         }
 
+        //Working with variables
         public void insertSchool(string school, string firstName, string lastName){
-            string insertSchool = "insert into `csci380`.`school` (school, advisorFirstName, advisorLastName) VALUES (' " + school + ' ", ' + firstName + " ' " + lastName " ') ";
+            string insertSchool = "insert into `csci380`.`school` (school, advisorFirstName, advisorLastName) VALUES ('" + school + "', '" + firstName + "', '" + lastName "');";
             prepareAndRunStatement(insertSchool);
         }
 
+        //Not working :(
         public void insertUserSchool(string school, string firstName, string lastName){
-            string insertUS = "insert into `csci380`.`user-school` (firstName, lastName, schoolName) VALUES (' " + firstName + ' ", ' + lastName + " ' " + school " ') ";
+            string insertUS = "insert into `csci380`.`user-school` (firstName, lastName, schoolName) VALUES (' " + firstName + ' ", ' + lastName + " ' " + school " ');";
         }
 
         public string getVerification(string firstName, string lastName){
@@ -73,7 +76,7 @@ namespace DB {
         }
 
         public string getAdvisorEmail(string advisorFirstName, string advisorLastName, string school){
-            string getAdvisorEmail = "select email FROM `csci380`.`user` WHERE (firstName, lastName)=(select ' " + advisorFirstName + ' ", ' +advisorLastName " ' FROM `csci380`.`school` WHERE school=' "school');";
+            string getAdvisorEmail = "select email FROM `csci380`.`user` WHERE (firstName, lastName)=(select ' " + advisorFirstName + ' ", ' + advisorLastName + " ' FROM `csci380`.`school` WHERE school=' " + school + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getAdvisorEmail);
             dataReader.Read();
             return dataReader["advisor email"] + "";

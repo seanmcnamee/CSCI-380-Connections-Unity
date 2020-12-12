@@ -63,6 +63,15 @@ namespace SecAuth
             EmailSender.SendEmailTo(toEmail, subject, body);
         }
 
+        public bool IsValidEmail(string email) {
+            MailAddress address;
+            try {
+                MailAddress address = new MailAddress(email);
+            } finally {
+                return address != null && address.Address = email;
+            }
+        }
+
         public static bool VerifyAccount(string firstName, string lastName, string verificationCode) {
             // TODO grab verification code from Database
             string verificationCodeFromDB = "test";
