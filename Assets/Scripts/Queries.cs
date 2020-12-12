@@ -88,5 +88,7 @@ namespace DB {
         public string getSchools(string firstName, string lastName){
             string getSchools = "select schoolName FROM `csci380`.`user-school` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
         }
+
+        //test from sean
     }
 }
