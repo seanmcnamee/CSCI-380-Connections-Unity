@@ -35,7 +35,6 @@ namespace DB {
         private MySqlDataReader prepareAndRunQuery(string statement) {
             this.myCommand.CommandText = statement;
             MySqlDataReader dataReader = this.myCommand.ExecuteReader();
-            dataReader.Read(); //TODO if this fucks up move back into calling method
             return dataReader;
         }
 
@@ -65,57 +64,91 @@ namespace DB {
         public string getVerification(string firstName, string lastName){
             string getCode = "select isVerified FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" +  lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getCode);
-            return dataReader["isVerified"] + "";
+            string verificationCode = dataReader["isVerified"] + "";
+            dataReader.Close();
+            return verificationCode;
         }
 
         public User getUser(string firstName, string lastName) {
             //Getting general user info
             string getInfo = "select type, isVerified, email FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getInfo);
-            
-            User.UserType userType = (User.UserType)(int)dataReader["type"];
-            string isVerified = dataReader["isVerified"] + "";
-            string email = dataReader["email"] + "";
-            string[] schools = null;
-            //string[] schools = getSchools(firstName, lastName);
 
-            return new User(firstName+lastName, userType, isVerified, email, schools);
+           // User.UserType userType = Enum.Parse<User.UserType>((dataReader["type"]+""));
+            if (dataReader.Read()) {
+                User.UserType userType = (User.UserType)Enum.Parse(typeof(User.UserType), dataReader["type"]+"");
+            
+                Console.WriteLine("UserType from DB: " + userType);
+                //User.UserType userType = (User.UserType)(int)(dataReader["type"]);
+                string isVerified = dataReader["isVerified"] + "";
+                string email = dataReader["email"] + "";
+                dataReader.Close();
+
+                string[] schools = getSchools(firstName, lastName);
+
+                return new User(firstName+lastName, userType, isVerified, email, schools);
+            } else {
+                return null;
+            }
         }
 
         private string[] getSchools(string firstName, string lastName){
             string getSchools = "select schoolName FROM `csci380`.`user-school` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getSchools);
             List<string> listSchools = new List<string>();
-            do {
-                listSchools.Add(dataReader["school"] + "");
-            } while (dataReader.Read());
 
+            while (dataReader.Read()) {
+                listSchools.Add(dataReader["schoolName"] + "");
+            }
+
+            dataReader.Close();
             return listSchools.ToArray();
         }
 
+        private string[] getAllSchools(){
+            string getSchools = "select DISTINCT schoolName FROM `csci380`.`user-school`;";
+            MySqlDataReader dataReader = prepareAndRunQuery(getSchools);
+            List<string> listSchools = new List<string>();
 
-        public string getSchool(string school){
-            string getSchool = "select school FROM 'csci380', 'school' WHERE (school)=('" + school + "');";
-            MySqlDataReader dataReader = prepareAndRunQuery(getSchool);
-            return dataReader["school"] + "";
+            while (dataReader.Read()) {
+                listSchools.Add(dataReader["schoolName"] + "");
+            }
+
+            dataReader.Close();
+            return listSchools.ToArray();
         }
 
         public string getAdvisorEmail(string school){
             string getAdvisorEmail = "select email FROM `csci380`.`user` WHERE (firstName, lastName)=(select advisorFirstName, advisorLastName FROM `csci380`.`school` WHERE school='" + school + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getAdvisorEmail);
-            return dataReader["email"] + "";
+            string email = null;
+            if (dataReader.Read()) {
+                email = dataReader["email"] + "";
+            }
+            dataReader.Close();
+            return email;
         }
 
         public string getDeveloperEmail(){
-            string getDeveloperEmail = "select email FROM `csci380`.`user` WHERE userType='Developer';";
+            string getDeveloperEmail = "select email FROM `csci380`.`user` WHERE type='Developer';";
             MySqlDataReader dataReader = prepareAndRunQuery(getDeveloperEmail);
-            return dataReader["email"] + "";
+            string email = null;
+            if (dataReader.Read()) {
+                email = dataReader["email"] + "";
+            }
+            dataReader.Close();
+            return email;
         }
 
         public string getPassword(string firstName, string lastName) {
             string userInsert = "select password FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(userInsert);
-            return dataReader["password"] + "";
+            string password = null;
+            if (dataReader.Read()) {
+                password = dataReader["password"] + "";
+            }
+            dataReader.Close();
+            return password;;
         }
         
 

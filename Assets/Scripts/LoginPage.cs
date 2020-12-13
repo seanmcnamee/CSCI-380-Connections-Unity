@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace SecAuth
 {
@@ -13,6 +14,8 @@ namespace SecAuth
         private InputField password;
         [SerializeField]
         private Text response;
+        [SerializeField]
+        private string menuSwitch;
 
         public void Login() {
             //Login with the provided credentials
@@ -25,7 +28,12 @@ namespace SecAuth
                 response.text = "Invalid Credentials, Try again";
             } else {
                 response.text = "";
+                SceneManager.LoadScene(menuSwitch);
             }
+        }
+
+        public void ClearResponse() {
+            response.text = "";
         }
     }
 }

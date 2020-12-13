@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using System;
 using System.Collections.Generic;
 
 using Data;
-
+using UnityEngine.SceneManagement;
 namespace SecAuth
 {
     public class RegisterPage : MonoBehaviour
@@ -22,7 +23,8 @@ namespace SecAuth
 
         [SerializeField]
         private Dropdown homeSchool;
-
+        [SerializeField]
+        private InputField advisorSchool;
 
 
         [SerializeField]
@@ -33,24 +35,52 @@ namespace SecAuth
 
         [SerializeField]
         private Button submit;
+        [SerializeField]
+        private string menuSwitch;
   
         private List<string> schools = new List<string>();
 
-
         public void UserTypeSet() {
-            if (userType.value > 1) {
-                //Moderator/Admin
-                schoolDropDown.interactable = false;
-                submit.interactable = true;
-                schools.Clear();
-                setTextForSchools();
-            } else if (userType.value == 1) {
-                //High School
-                schoolDropDown.interactable = true;
-                submit.interactable = false;
-            } else {
-                //Nothing selected
-                submit.interactable = false;
+            switch (userType.value) {
+                case 1:
+                    //High School
+                    advisorSchool.text = "";
+                    schoolDropDown.interactable = true;
+                    submit.interactable = false;
+                    advisorSchool.interactable = false;
+                    homeSchool.interactable = true;
+                    break;
+                case 2:
+                    //Moderator
+                    schools.Clear();
+                    setTextForSchools();
+                    advisorSchool.text = "";
+
+                    schoolDropDown.interactable = false;
+                    submit.interactable = true;
+                    advisorSchool.interactable = false;
+                    homeSchool.interactable = true;
+                    break;
+                case 3:
+                    //Admin
+                    schools.Clear();
+                    setTextForSchools();
+
+                    schoolDropDown.interactable = false;
+                    submit.interactable = true;
+                    advisorSchool.interactable = true;
+                    homeSchool.interactable = false;
+                    break;
+                default:
+                    schools.Clear();
+                    setTextForSchools();
+                    advisorSchool.text = "";
+
+                    submit.interactable = false;
+                    advisorSchool.interactable = false;
+                    homeSchool.interactable = false;
+                    schoolDropDown.interactable = false;
+                    break;
             }
         }
 
@@ -95,8 +125,9 @@ namespace SecAuth
 
             //Make sure above information isn't null
 
-            if ((strfirstName != null) && (strlastName != null) && (struserPassword != null) && (strEmail != null) && (intUserType > 0) && (intUserType < 4) && (strhomeSchool != null)) {
+            if (!String.IsNullOrEmpty(strfirstName) && !String.IsNullOrEmpty(strlastName) && !String.IsNullOrEmpty(struserPassword) && !String.IsNullOrEmpty(strEmail) && (intUserType > 0) && (intUserType < 4) && !String.IsNullOrEmpty(strhomeSchool)) {
                 Authenticator.Register(strfirstName, strlastName, struserPassword, ((User.UserType) intUserType), strEmail, strhomeSchool, lstSchools);
+                SceneManager.LoadScene(menuSwitch);
             }
             // firstName,  lastName,  password, userType,  email,  homeSchool, string[] schools
             
