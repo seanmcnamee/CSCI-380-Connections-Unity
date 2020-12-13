@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
 
     public void SendMessageToChat(string text, Message.MessageType messageType)
     {
+        SceneInstanceControl.User.messages.Add(text);
         if (messageList.Count >= maxMessage)
         {
             Destroy(messageList[0].textObject.gameObject);

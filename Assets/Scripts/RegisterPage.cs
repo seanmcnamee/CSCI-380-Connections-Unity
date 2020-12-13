@@ -157,7 +157,7 @@ namespace Page
 
             //Make sure above information isn't null
 
-            if (!String.IsNullOrEmpty(strfirstName) && !String.IsNullOrEmpty(strlastName) && !String.IsNullOrEmpty(struserPassword) && !String.IsNullOrEmpty(strEmail) && (intUserType > 0) && (intUserType < 4) && (schools.Count > 0)) {
+            if (!String.IsNullOrEmpty(strfirstName) && !String.IsNullOrEmpty(strlastName) && !String.IsNullOrEmpty(struserPassword) && !String.IsNullOrEmpty(strEmail) && Authenticator.IsValidEmail(strEmail+"") && (intUserType > 0) && (intUserType < 4) && (schools.Count > 0)) {
                 Authenticator.Register(strfirstName, strlastName, struserPassword, ((User.UserType) intUserType), strEmail, strhomeSchool, schools, IsCollege.isOn);
                 SceneManager.LoadScene(menuSwitch);
             }
