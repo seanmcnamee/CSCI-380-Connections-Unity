@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 SendMessageToChat(username + ": " + chatBox.text, Message.MessageType.playerMessage);
+
+                if (chatBox.text.ToLower() == "hi" || chatBox.text.ToLower() == "hello")
+                {
+                    SendMessageToChat("Admin: Hello", Message.MessageType.info);
+                }
+
                 chatBox.text = "";
             }
         }
