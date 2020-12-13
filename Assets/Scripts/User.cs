@@ -64,5 +64,20 @@ namespace Data
         public bool IsVerified() {
             return this.isVerified.Equals(verifiedString);
         }
+
+        public bool IsVerifiableBy(User other) {
+            if (other == null) {
+                return false;
+            }
+
+            if ((IsHighSchooler() || IsCollegeModerator()) && (other.IsAdvisor() || other.IsDeveloper())) {
+                return true;
+            }
+            if ((IsAdvisor()) && (other.IsDeveloper())) {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

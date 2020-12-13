@@ -696,6 +696,7 @@ GameObject:
   - component: {fileID: 155469942}
   - component: {fileID: 155469941}
   - component: {fileID: 155469939}
+  - component: {fileID: 155469943}
   m_Layer: 5
   m_Name: FirstNameInput
   m_TagString: Untagged
@@ -758,7 +759,18 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 155469943}
+        m_MethodName: ClearResponse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -824,6 +836,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155469938}
   m_CullTransparentMesh: 0
+--- !u!114 &155469943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155469938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c93f5e62d809d74aa209a1017b0e285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstName: {fileID: 0}
+  lastName: {fileID: 0}
+  verificationCode: {fileID: 0}
+  response: {fileID: 1876029842}
 --- !u!1 &175113561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,6 +1622,7 @@ GameObject:
   - component: {fileID: 1803425038}
   - component: {fileID: 1803425037}
   - component: {fileID: 1803425035}
+  - component: {fileID: 1803425039}
   m_Layer: 5
   m_Name: VerificationInput
   m_TagString: Untagged
@@ -1656,7 +1685,18 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1803425039}
+        m_MethodName: ClearResponse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -1722,6 +1762,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803425034}
   m_CullTransparentMesh: 0
+--- !u!114 &1803425039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803425034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c93f5e62d809d74aa209a1017b0e285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstName: {fileID: 0}
+  lastName: {fileID: 0}
+  verificationCode: {fileID: 0}
+  response: {fileID: 1876029842}
 --- !u!1 &1876029840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,6 +1946,7 @@ GameObject:
   - component: {fileID: 1943138603}
   - component: {fileID: 1943138602}
   - component: {fileID: 1943138600}
+  - component: {fileID: 1943138604}
   m_Layer: 5
   m_Name: LastNameInput
   m_TagString: Untagged
@@ -1952,7 +2009,18 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1943138604}
+        m_MethodName: ClearResponse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -2018,6 +2086,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943138599}
   m_CullTransparentMesh: 0
+--- !u!114 &1943138604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943138599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c93f5e62d809d74aa209a1017b0e285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstName: {fileID: 0}
+  lastName: {fileID: 0}
+  verificationCode: {fileID: 0}
+  response: {fileID: 1876029842}
 --- !u!1 &2029131376
 GameObject:
   m_ObjectHideFlags: 0

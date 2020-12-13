@@ -88,7 +88,7 @@ namespace SecAuth
                 return false;
             }
 
-            if (verificationCodeFromDB.Equals(verificationCode)) {
+            if (verificationCodeFromDB.Equals(verificationCode) && (conn.getUser(firstName, lastName).IsVerifiableBy(SceneInstanceControl.User))) {
                 // TODO Update verification code in database
                 conn.setVerified(firstName, lastName);
                 

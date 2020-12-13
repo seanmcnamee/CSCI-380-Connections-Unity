@@ -117,6 +117,7 @@ namespace DB {
             }
         }
 
+        //Schools of this user
         private string[] getSchools(string firstName, string lastName){
             string getSchools = "select schoolName FROM `csci380`.`user-school` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getSchools);
@@ -134,18 +135,24 @@ namespace DB {
             dataReader.Close();
             return listSchools.ToArray();
         }
+        
 
-        private string[] getAllSchools(){
-            string getSchools = "select DISTINCT schoolName FROM `csci380`.`user-school`;";
+        public List<string> getAllRooms(bool isCollege){
+            int num = isCollege ? 1 : 0;
+            string getSchools = "select DISTINCT school FROM `csci380`.`school` WHERE isCollege=" + num + " AND (advisorFirstName, advisorLastName) IN (SELECT DISTINCT firstName, lastName from `csci380`.`user` WHERE isVerified='Verified');";
             MySqlDataReader dataReader = prepareAndRunQuery(getSchools);
+            if (dataReader == null) {
+                dataReader.Close();
+                return null;
+            }
             List<string> listSchools = new List<string>();
 
             while (dataReader.Read()) {
-                listSchools.Add(dataReader["schoolName"] + "");
+                listSchools.Add(dataReader["school"] + "");
             }
 
             dataReader.Close();
-            return listSchools.ToArray();
+            return listSchools;
         }
 
         public string getAdvisorEmail(string school){

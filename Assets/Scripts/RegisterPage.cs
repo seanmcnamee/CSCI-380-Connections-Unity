@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 using Data;
 using UnityEngine.SceneManagement;
+using DB;
+
 namespace SecAuth
 {
     public class RegisterPage : MonoBehaviour
@@ -40,7 +42,15 @@ namespace SecAuth
   
         private List<string> schools = new List<string>();
 
+        void Start() {
+            Queries conn = new Queries();
+            schoolDropDown.ClearOptions();
+            schoolDropDown.AddOptions(conn.getAllRooms(true));
+            conn.closeConenction();
+        }
+
         public void UserTypeSet() {
+            Queries conn;
             switch (userType.value) {
                 case 1:
                     //High School
@@ -49,17 +59,24 @@ namespace SecAuth
                     submit.interactable = false;
                     advisorSchool.interactable = false;
                     homeSchool.interactable = true;
+                    conn = new Queries();
+                    homeSchool.ClearOptions();
+                    homeSchool.AddOptions(conn.getAllRooms(false));
+                    conn.closeConenction();
                     break;
                 case 2:
                     //Moderator
                     schools.Clear();
                     setTextForSchools();
                     advisorSchool.text = "";
-
                     schoolDropDown.interactable = false;
                     submit.interactable = true;
                     advisorSchool.interactable = false;
                     homeSchool.interactable = true;
+                    conn = new Queries();
+                    homeSchool.ClearOptions();
+                    homeSchool.AddOptions(conn.getAllRooms(true));
+                    conn.closeConenction();
                     break;
                 case 3:
                     //Admin
@@ -82,6 +99,7 @@ namespace SecAuth
                     schoolDropDown.interactable = false;
                     break;
             }
+            
         }
 
 

@@ -28,5 +28,9 @@ namespace SecAuth
                 response.text = "Invalid Credentials, Try again";
             }
         }
+
+        public void ClearResponse() {
+            response.text = "";
+        }
     }
 }
