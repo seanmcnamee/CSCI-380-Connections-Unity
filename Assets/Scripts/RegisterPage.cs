@@ -27,11 +27,8 @@ namespace SecAuth
         private Dropdown homeSchool;
         [SerializeField]
         private InputField advisorSchool;
-
-
         [SerializeField]
         private Dropdown schoolDropDown;
-
         [SerializeField]
         private Text textShowingSchools;
 
