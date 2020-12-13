@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
             {
                 SendMessageToChat(username + ": " + chatBox.text, Message.MessageType.playerMessage);
 
-                if (chatBox.text.ToLower() == "hi" || chatBox.text.ToLower() == "hello")
+                if (chatBox.text.ToLower() == "hi" || chatBox.text.ToLower() == "hello" || chatBox.text.ToLower() == "hello?")
                 {
                     SendMessageToChat("Admin: Hello", Message.MessageType.info);
                 }else if (chatBox.text.ToLower() == "how are you doing?" || chatBox.text.ToLower() == "how are you doing")
@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
 
     public void SendMessageToChat(string text, Message.MessageType messageType)
     {
+        SceneInstanceControl.User.messages.Add(text);
         if (messageList.Count >= maxMessage)
         {
             Destroy(messageList[0].textObject.gameObject);

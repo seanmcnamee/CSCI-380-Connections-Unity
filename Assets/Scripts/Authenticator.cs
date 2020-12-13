@@ -84,7 +84,7 @@ namespace SecAuth
             EmailSender.SendEmailTo(toEmail, subject, body);
         }
 
-        public bool IsValidEmail(string email) {
+        public static bool IsValidEmail(string email) {
             MailAddress address;
             try {
                 address = new MailAddress(email);
