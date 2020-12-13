@@ -1010,7 +1010,7 @@ MonoBehaviour:
   email: {fileID: 1562171885}
   userType: {fileID: 1375972007}
   homeSchool: {fileID: 417276648}
-  advisorSchool: {fileID: 0}
+  advisorSchool: {fileID: 1478576788}
   schoolDropDown: {fileID: 102652367}
   textShowingSchools: {fileID: 580402284}
   submit: {fileID: 229855889}

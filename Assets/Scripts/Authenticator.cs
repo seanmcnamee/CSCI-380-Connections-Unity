@@ -1,6 +1,7 @@
 using System;
 using System.Net.Mail;
 using System.Net;
+using System.Collections.Generic;
 
 using UnityEngine;
 using DB;
@@ -12,7 +13,7 @@ namespace SecAuth
     {
         private static System.Random randomNum = new System.Random();
 
-        public static void Register(string firstName, string lastName, string password, User.UserType userType, string email, string homeSchool, string[] schools=null) {
+        public static void Register(string firstName, string lastName, string password, User.UserType userType, string email, string homeSchool, List<string> schools) {
             password = PasswordEncryption(password);
             string verificationCode = GenerateVerificationCode();
 
@@ -21,11 +22,16 @@ namespace SecAuth
             conn.insertUser(firstName, lastName, password, userType, verificationCode, email);
 
             //Storing USER-SCHOOL values if needed
-            if (schools != null) {
+            if (schools != null && schools.Count > 0) {
+                Debug.Log("Will be added");
                 foreach (string school in schools) {
+                    Debug.Log(school);
                     //Store Username and School in USER-SCHOOL
                     conn.insertUserSchool(school, firstName, lastName);
                 }
+                
+            } else {
+                Debug.Log("No schools added");
             }
 
             //Send email with verification code

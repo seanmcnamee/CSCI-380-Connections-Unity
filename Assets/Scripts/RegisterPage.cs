@@ -4,11 +4,12 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
-using Data;
 using UnityEngine.SceneManagement;
+using Data;
 using DB;
+using SecAuth;
 
-namespace SecAuth
+namespace Page
 {
     public class RegisterPage : MonoBehaviour
     {
@@ -40,12 +41,12 @@ namespace SecAuth
         private string chatrooms = "ChatRooms?";
         private string homeSchoolText = "HomeSchool?";
   
-        private List<string> schools = new List<string>();
+        public static List<string> schools = new List<string>();
 
         void Start() {
             Queries conn = new Queries();
             schoolDropDown.ClearOptions();
-            List<string> collegeRooms = conn.getAllRooms(true);
+            List<string> collegeRooms = conn.getAllSchools(true);
             collegeRooms.Insert(0, chatrooms);
             schoolDropDown.AddOptions(collegeRooms);
             conn.closeConenction();
@@ -64,7 +65,7 @@ namespace SecAuth
                     homeSchool.interactable = true;
                     conn = new Queries();
                     homeSchool.ClearOptions();
-                    homeSchoolsList = conn.getAllRooms(false);
+                    homeSchoolsList = conn.getAllSchools(false);
                     homeSchoolsList.Insert(0, homeSchoolText);
                     homeSchool.AddOptions(homeSchoolsList);
                     conn.closeConenction();
@@ -80,7 +81,7 @@ namespace SecAuth
                     homeSchool.interactable = true;
                     conn = new Queries();
                     homeSchool.ClearOptions();
-                    homeSchoolsList = conn.getAllRooms(true);
+                    homeSchoolsList = conn.getAllSchools(true);
                     homeSchoolsList.Insert(0, homeSchoolText);
                     homeSchool.AddOptions(homeSchoolsList);
                     conn.closeConenction();
@@ -111,6 +112,8 @@ namespace SecAuth
 
 
         public void AddSchool() {
+            Debug.Log(schools.Count);
+
             if (schoolDropDown.value > 0) {
                 string schoolToAdd = schoolDropDown.captionText.text;
 
@@ -151,18 +154,24 @@ namespace SecAuth
                 //Only advisors input their own school
                 strhomeSchool = advisorSchool.text;
             } else {
-                //All other users choose from the dropdown
+                //All other users choose from the dropdown (0 isn't allowed)
                 if (homeSchool.value > 0) {
                     strhomeSchool = homeSchool.captionText.text;
                 }
             }
-             
-            string[] lstSchools = schools.ToArray();
+
+            Debug.Log("Trying to register");
+            Debug.Log(strfirstName + ", " + strlastName + ", " + strEmail + ", " + intUserType + ", " + strhomeSchool + ", " + schools.Count);
+            
+            Debug.Log("Schools:");
+            foreach (string school in schools) {
+                Debug.Log("s: " + school);
+            }
 
             //Make sure above information isn't null
 
-            if (!String.IsNullOrEmpty(strfirstName) && !String.IsNullOrEmpty(strlastName) && !String.IsNullOrEmpty(struserPassword) && !String.IsNullOrEmpty(strEmail) && (intUserType > 0) && (intUserType < 4) && !String.IsNullOrEmpty(strhomeSchool)) {
-                Authenticator.Register(strfirstName, strlastName, struserPassword, ((User.UserType) intUserType), strEmail, strhomeSchool, lstSchools);
+            if (!String.IsNullOrEmpty(strfirstName) && !String.IsNullOrEmpty(strlastName) && !String.IsNullOrEmpty(struserPassword) && !String.IsNullOrEmpty(strEmail) && (intUserType > 0) && (intUserType < 4) && (schools.Count > 0)) {
+                Authenticator.Register(strfirstName, strlastName, struserPassword, ((User.UserType) intUserType), strEmail, strhomeSchool, schools);
                 SceneManager.LoadScene(menuSwitch);
             }
             // firstName,  lastName,  password, userType,  email,  homeSchool, string[] schools

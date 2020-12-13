@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SecAuth
+using SecAuth;
+
+namespace Page
 {
     public class VerifyPage : MonoBehaviour
     {

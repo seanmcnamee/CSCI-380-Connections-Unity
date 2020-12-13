@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DB;
+using SecAuth;
 
-namespace SecAuth
+namespace Page
 {
     public class LoginPage : MonoBehaviour
     {
@@ -29,11 +30,17 @@ namespace SecAuth
             Debug.Log("User-pass: " + username + ", " + userPassword);
             SceneInstanceControl.User = Authenticator.Login(firstName.text, lastName.text, userPassword);
 
-            if (SceneInstanceControl.User == null) {
-                response.text = "Invalid Credentials, Try again";
-            } else {
+            bool isLoggedInAndVerified = SceneInstanceControl.User != null && SceneInstanceControl.User.IsVerified();
+
+            if (isLoggedInAndVerified) {
                 response.text = "";
                 SceneManager.LoadScene(menuSwitch);
+            } else {
+                if (SceneInstanceControl.User == null) {
+                    response.text = "Invalid Credentials, Try again";
+                } else {
+                    response.text = "Not yet verified. Contact your advisor";
+                }
             }
         }
 
