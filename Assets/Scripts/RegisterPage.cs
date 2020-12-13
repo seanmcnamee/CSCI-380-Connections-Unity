@@ -45,7 +45,9 @@ namespace SecAuth
         void Start() {
             Queries conn = new Queries();
             schoolDropDown.ClearOptions();
-            schoolDropDown.AddOptions(conn.getAllRooms(true));
+            List<string> collegeRooms = conn.getAllRooms(true);
+            collegeRooms.Insert(0, "ChatRooms");
+            schoolDropDown.AddOptions(collegeRooms);
             conn.closeConenction();
         }
 
