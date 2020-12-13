@@ -36,6 +36,9 @@ namespace SecAuth
         private Button submit;
         [SerializeField]
         private string menuSwitch;
+
+        private string chatrooms = "ChatRooms?";
+        private string homeSchoolText = "HomeSchool?";
   
         private List<string> schools = new List<string>();
 
@@ -43,13 +46,14 @@ namespace SecAuth
             Queries conn = new Queries();
             schoolDropDown.ClearOptions();
             List<string> collegeRooms = conn.getAllRooms(true);
-            collegeRooms.Insert(0, "ChatRooms");
+            collegeRooms.Insert(0, chatrooms);
             schoolDropDown.AddOptions(collegeRooms);
             conn.closeConenction();
         }
 
         public void UserTypeSet() {
             Queries conn;
+            List<string> homeSchoolsList;
             switch (userType.value) {
                 case 1:
                     //High School
@@ -60,7 +64,9 @@ namespace SecAuth
                     homeSchool.interactable = true;
                     conn = new Queries();
                     homeSchool.ClearOptions();
-                    homeSchool.AddOptions(conn.getAllRooms(false));
+                    homeSchoolsList = conn.getAllRooms(false);
+                    homeSchoolsList.Insert(0, homeSchoolText);
+                    homeSchool.AddOptions(homeSchoolsList);
                     conn.closeConenction();
                     break;
                 case 2:
@@ -74,7 +80,9 @@ namespace SecAuth
                     homeSchool.interactable = true;
                     conn = new Queries();
                     homeSchool.ClearOptions();
-                    homeSchool.AddOptions(conn.getAllRooms(true));
+                    homeSchoolsList = conn.getAllRooms(true);
+                    homeSchoolsList.Insert(0, homeSchoolText);
+                    homeSchool.AddOptions(homeSchoolsList);
                     conn.closeConenction();
                     break;
                 case 3:
@@ -138,13 +146,15 @@ namespace SecAuth
             string strEmail = email.text;
             int intUserType = userType.value;
 
-            string strhomeSchool;
+            string strhomeSchool = "";
             if (intUserType == 2) {
                 //Only advisors input their own school
                 strhomeSchool = advisorSchool.text;
             } else {
                 //All other users choose from the dropdown
-                strhomeSchool = homeSchool.captionText.text;
+                if (homeSchool.value > 0) {
+                    strhomeSchool = homeSchool.captionText.text;
+                }
             }
              
             string[] lstSchools = schools.ToArray();

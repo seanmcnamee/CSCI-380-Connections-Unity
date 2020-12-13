@@ -73,6 +73,11 @@ namespace DB {
             prepareAndRunStatement(setVerified);
         }
 
+        public void setPassword(string firstName, string lastName, string password) {
+            string setVerified = "UPDATE `csci380`.`user` SET password='" + password + "' WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "')";
+            prepareAndRunStatement(setVerified);
+        }
+
         public string getVerification(string firstName, string lastName){
             string getCode = "select isVerified FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" +  lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getCode);

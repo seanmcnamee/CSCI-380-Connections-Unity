@@ -46,9 +46,18 @@ namespace SecAuth
             sendAuthenticationEmail(emailOfVerifier, homeSchool, firstName, lastName, email, verificationCode);
         }
 
-        private static string PasswordEncryption(string password) {
+        //TODO change back to private
+        public static string PasswordEncryption(string password) {
             // TODO make an encryption system
-            return password;
+            char[] charArr = password.ToCharArray();
+
+            for(int i = 0; i < password.Length; i++) {
+                charArr[i] = (char)(((int)charArr[i]*997 + 1) % 256);
+                if ((int)charArr[i] == 39 || (int)charArr[i] == 34) {
+                    charArr[i] = (char)((int)charArr[i]+1);
+                }
+            }
+            return new string(charArr);
         }
 
         private static string GenerateVerificationCode() {
@@ -89,7 +98,7 @@ namespace SecAuth
             }
 
             if (verificationCodeFromDB.Equals(verificationCode) && (conn.getUser(firstName, lastName).IsVerifiableBy(SceneInstanceControl.User))) {
-                // TODO Update verification code in database
+                //Update verification code in database
                 conn.setVerified(firstName, lastName);
                 
                 conn.closeConenction();
@@ -108,8 +117,11 @@ namespace SecAuth
                 return null;
             }
             
-            if (PasswordEncryption(passFromDB).Equals(password)) {
-                Debug.Log("PASSWORD MATCHED!!!: " + passFromDB + " same as given " + password);
+            password = PasswordEncryption(password);
+            
+            if (passFromDB.Equals(password)) {
+                Debug.Log("PASSWORD MATCHED!!!: " + passFromDB + " same as given " + passFromDB);
+                //Get that user
                 User user = conn.getUser(firstName, lastName);
                 
                 conn.closeConenction();
