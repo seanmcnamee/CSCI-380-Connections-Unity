@@ -19,7 +19,6 @@ namespace SecAuth
             //Store user info into database
             Queries conn = new Queries();
             conn.insertUser(firstName, lastName, password, userType, verificationCode, email);
-            
 
             //Storing USER-SCHOOL values if needed
             if (schools != null) {
@@ -36,6 +35,7 @@ namespace SecAuth
                 emailOfVerifier = conn.getAdvisorEmail(homeSchool);
             } else {
                 // TODO get email of developer (search for developer userType)
+                conn.insertSchool(homeSchool, firstName, lastName);
                 emailOfVerifier = conn.getDeveloperEmail();
             }
 

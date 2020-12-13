@@ -120,7 +120,16 @@ namespace SecAuth
             string struserPassword = password.text;
             string strEmail = email.text;
             int intUserType = userType.value;
-            string strhomeSchool = homeSchool.captionText.text;
+
+            string strhomeSchool;
+            if (intUserType == 2) {
+                //Only advisors input their own school
+                strhomeSchool = advisorSchool.text;
+            } else {
+                //All other users choose from the dropdown
+                strhomeSchool = homeSchool.captionText.text;
+            }
+             
             string[] lstSchools = schools.ToArray();
 
             //Make sure above information isn't null
