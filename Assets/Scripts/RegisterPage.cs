@@ -98,7 +98,6 @@ namespace Page
             submit.gameObject.SetActive(show);
         }
 
-
         public void AddSchool() {
             Debug.Log(schools.Count);
 
