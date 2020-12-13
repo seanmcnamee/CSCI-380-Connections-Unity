@@ -15,15 +15,11 @@ namespace Page
     {
         [SerializeField]
         private Dropdown chatRoomDropDown;
-        
-
-        private string chatrooms = "Select chat room";
   
 
         void Start() {
             chatRoomDropDown.ClearOptions();
             List<string> chatRoomList = SceneInstanceControl.User.schoolNames;
-            chatRoomList.Insert(0, chatrooms);
             chatRoomDropDown.AddOptions(chatRoomList);
         }
     }

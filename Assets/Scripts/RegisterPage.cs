@@ -84,7 +84,7 @@ namespace Page
             if (show) {
                 Queries conn = new Queries();
                 homeSchool.ClearOptions();
-                List<string> homeSchoolsList = conn.getAllSchools(false);
+                List<string> homeSchoolsList = conn.getAllSchools(userType.value == 2);
                 homeSchoolsList.Insert(0, homeSchoolText);
                 homeSchool.AddOptions(homeSchoolsList);
                 conn.closeConenction();
@@ -140,11 +140,8 @@ namespace Page
             if (intUserType == 2) {
                 //Only advisors input their own school
                 strhomeSchool = advisorSchool.text;
-            } else {
-                //All other users choose from the dropdown (0 isn't allowed)
-                if (homeSchool.value > 0) {
+            } else if (homeSchool.value > 0) { //All other users choose from the dropdown (0 isn't allowed)
                     strhomeSchool = homeSchool.captionText.text;
-                }
             }
 
             Debug.Log("Trying to register");

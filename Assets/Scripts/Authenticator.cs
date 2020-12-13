@@ -38,6 +38,7 @@ namespace SecAuth
             string emailOfVerifier = null;
             if (userType == User.UserType.HighSchooler || userType == User.UserType.CollegeModerator) {
                 // TODO get email of advisor (using homeschool to find them)
+                Debug.Log("Home School: " + homeSchool);
                 emailOfVerifier = conn.getAdvisorEmail(homeSchool);
             } else {
                 // TODO get email of developer (search for developer userType)
@@ -58,7 +59,7 @@ namespace SecAuth
             char[] charArr = password.ToCharArray();
 
             for(int i = 0; i < password.Length; i++) {
-                charArr[i] = (char)(((int)charArr[i]*997 + 1) % 256);
+                charArr[i] = (char)(((int)charArr[i]*97 + 1) % 96 + 32);
                 if ((int)charArr[i] == 39 || (int)charArr[i] == 34) {
                     charArr[i] = (char)((int)charArr[i]+1);
                 }
@@ -134,7 +135,7 @@ namespace SecAuth
                 return user;
             }
             conn.closeConenction();
-            Debug.Log("PASSWORD: " + passFromDB + " didn't match :(");
+            Debug.Log("PASSWORD: " + passFromDB + " didn't match the provided " + password);
             return null;
         }
     }

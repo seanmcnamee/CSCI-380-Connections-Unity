@@ -64,10 +64,9 @@ namespace DB {
             prepareAndRunStatement(insertSchool);
         }
 
-        //Not working :(
         public void insertUserSchool(string school, string firstName, string lastName){
             Debug.Log("Inserting... " + school + " " + firstName + " " + lastName);
-            string insertUser = "insert into `csci380`.`user-school` (firstName, lastName, schoolName) VALUES ('" + firstName + "', '" + lastName + "', " + school + "');";
+            string insertUser = "insert into `csci380`.`user-school` (firstName, lastName, schoolName) VALUES ('" + firstName + "', '" + lastName + "', '" + school + "');";
             prepareAndRunStatement(insertUser);
         }
 

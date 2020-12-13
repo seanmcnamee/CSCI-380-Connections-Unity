@@ -33,6 +33,7 @@ namespace Page
             bool isLoggedInAndVerified = SceneInstanceControl.User != null && SceneInstanceControl.User.IsVerified();
 
             if (isLoggedInAndVerified) {
+                //ChangeToEncrpted();
                 response.text = "";
                 SceneManager.LoadScene(menuSwitch);
             } else {

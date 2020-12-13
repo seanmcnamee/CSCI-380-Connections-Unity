@@ -8,6 +8,7 @@ namespace Data
     public class User
     {
         public static string verifiedString = "Verified";
+        private string chatrooms = "Select chat room";
 
         public enum UserType {
             HighSchooler, CollegeModerator, Advisor, Developer
@@ -26,6 +27,7 @@ namespace Data
             this.isVerified = isVerified;
             this.email = email;
             this.schoolNames = schoolNames;
+            schoolNames.Insert(0, chatrooms);
             this.messages = new List<string>();
         }
 
