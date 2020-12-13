@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using SecAuth;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        username = SceneInstanceControl.User.userName;
     }
 
     // Update is called once per frame
@@ -36,6 +37,9 @@ public class GameManager : MonoBehaviour
                 if (chatBox.text.ToLower() == "hi" || chatBox.text.ToLower() == "hello")
                 {
                     SendMessageToChat("Admin: Hello", Message.MessageType.info);
+                }else if (chatBox.text.ToLower() == "how are you doing?" || chatBox.text.ToLower() == "how are you doing")
+                {
+                    SendMessageToChat("Admin: I am doing well, how about you?", Message.MessageType.info);
                 }
 
                 chatBox.text = "";
