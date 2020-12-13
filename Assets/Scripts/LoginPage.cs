@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DB;
+using SecAuth;
 
-namespace SecAuth
+namespace Page
 {
     public class LoginPage : MonoBehaviour
     {
