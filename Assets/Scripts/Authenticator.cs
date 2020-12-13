@@ -84,6 +84,9 @@ namespace SecAuth
 
             //grab verification code from Database
             string verificationCodeFromDB = conn.getVerification(firstName, lastName);
+            if (String.IsNullOrEmpty(verificationCodeFromDB)) {
+                return false;
+            }
 
             if (verificationCodeFromDB.Equals(verificationCode)) {
                 // TODO Update verification code in database
@@ -101,6 +104,9 @@ namespace SecAuth
             //Grab password from Database
             Queries conn = new Queries();
             string passFromDB = conn.getPassword(firstName, lastName);
+            if (String.IsNullOrEmpty(passFromDB)) {
+                return null;
+            }
             
             if (PasswordEncryption(passFromDB).Equals(password)) {
                 Debug.Log("PASSWORD MATCHED!!!: " + passFromDB + " same as given " + password);

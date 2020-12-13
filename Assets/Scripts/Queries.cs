@@ -27,15 +27,27 @@ namespace DB {
         }
 
         private void prepareAndRunStatement(string statement) {
+            
             this.myCommand.CommandText = statement;
-            this.myCommand.ExecuteNonQuery();
+            try {
+                this.myCommand.ExecuteNonQuery();
+            } catch (Exception ex) {
+                Console.WriteLine("The statement failed :( " + ex.Message);
+            }
+            
             //MySqlDataReader test;
         }
         
         private MySqlDataReader prepareAndRunQuery(string statement) {
             this.myCommand.CommandText = statement;
-            MySqlDataReader dataReader = this.myCommand.ExecuteReader();
-            return dataReader;
+            try {
+                MySqlDataReader dataReader = this.myCommand.ExecuteReader();
+                return dataReader;
+            } catch (MySqlException ex) {
+                Console.WriteLine("The query failed :( " + ex.Message);
+                return null;
+            }
+            
         }
 
         //Example with no variables
@@ -64,7 +76,16 @@ namespace DB {
         public string getVerification(string firstName, string lastName){
             string getCode = "select isVerified FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" +  lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getCode);
-            string verificationCode = dataReader["isVerified"] + "";
+            if (dataReader == null) {
+                dataReader.Close();
+                return null;
+            }
+
+            string verificationCode = null;
+            if (dataReader.Read()) {
+                verificationCode = dataReader["isVerified"] + "";
+            }
+            
             dataReader.Close();
             return verificationCode;
         }
@@ -73,6 +94,10 @@ namespace DB {
             //Getting general user info
             string getInfo = "select type, isVerified, email FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getInfo);
+            if (dataReader == null) {
+                dataReader.Close();
+                return null;
+            }
 
            // User.UserType userType = Enum.Parse<User.UserType>((dataReader["type"]+""));
             if (dataReader.Read()) {
@@ -95,6 +120,11 @@ namespace DB {
         private string[] getSchools(string firstName, string lastName){
             string getSchools = "select schoolName FROM `csci380`.`user-school` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getSchools);
+            if (dataReader == null) {
+                dataReader.Close();
+                return null;
+            }
+
             List<string> listSchools = new List<string>();
 
             while (dataReader.Read()) {
@@ -121,6 +151,7 @@ namespace DB {
         public string getAdvisorEmail(string school){
             string getAdvisorEmail = "select email FROM `csci380`.`user` WHERE (firstName, lastName)=(select advisorFirstName, advisorLastName FROM `csci380`.`school` WHERE school='" + school + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getAdvisorEmail);
+
             string email = null;
             if (dataReader.Read()) {
                 email = dataReader["email"] + "";
@@ -143,6 +174,11 @@ namespace DB {
         public string getPassword(string firstName, string lastName) {
             string userInsert = "select password FROM `csci380`.`user` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(userInsert);
+            if (dataReader == null) {
+                dataReader.Close();
+                return null;
+            }
+
             string password = null;
             if (dataReader.Read()) {
                 password = dataReader["password"] + "";

@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 19601245}
   - component: {fileID: 19601244}
   - component: {fileID: 19601243}
-  - component: {fileID: 19601242}
   - component: {fileID: 19601241}
   m_Layer: 5
   m_Name: Verify
@@ -178,20 +177,6 @@ MonoBehaviour:
   lastName: {fileID: 1943138600}
   verificationCode: {fileID: 1803425035}
   response: {fileID: 1876029842}
---- !u!114 &19601242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19601239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e05907411ac6b40bc309dfac25a644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuSwitch: MainMenu
-  dropdown: {fileID: 0}
 --- !u!114 &19601243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,17 +220,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 19601242}
-        m_MethodName: SwitchToMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 19601241}
         m_MethodName: Verify
         m_Mode: 1
