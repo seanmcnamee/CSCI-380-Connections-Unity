@@ -114,7 +114,13 @@ namespace DB {
                 string email = dataReader["email"] + "";
                 dataReader.Close();
 
-                string[] schools = getSchools(firstName, lastName);
+                List<string> schools;
+                if (userType == User.UserType.Developer) {
+                    schools = getAllSchools(true);
+                } else {
+                    schools = getSchools(firstName, lastName);
+                }
+                 
 
                 return new User(firstName+lastName, userType, isVerified, email, schools);
             } else {
@@ -123,7 +129,7 @@ namespace DB {
         }
 
         //Schools of this user
-        private string[] getSchools(string firstName, string lastName){
+        private List<string> getSchools(string firstName, string lastName){
             string getSchools = "select schoolName FROM `csci380`.`user-school` WHERE (firstName, lastName)=('" + firstName + "', '" + lastName + "');";
             MySqlDataReader dataReader = prepareAndRunQuery(getSchools);
             if (dataReader == null) {
@@ -138,11 +144,11 @@ namespace DB {
             }
 
             dataReader.Close();
-            return listSchools.ToArray();
+            return listSchools;
         }
         
 
-        public List<string> getAllRooms(bool isCollege){
+        public List<string> getAllSchools(bool isCollege){
             int num = isCollege ? 1 : 0;
             string getSchools = "select DISTINCT school FROM `csci380`.`school` WHERE isCollege=" + num + " AND (advisorFirstName, advisorLastName) IN (SELECT DISTINCT firstName, lastName from `csci380`.`user` WHERE isVerified='Verified');";
             MySqlDataReader dataReader = prepareAndRunQuery(getSchools);

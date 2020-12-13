@@ -17,21 +17,16 @@ namespace Data
         private UserType userType {get;}
         private string isVerified;
         private string email;
-        private string[] schoolNames;
+        public List<string> schoolNames { get;}
         public List<string> messages { get;}
 
-        public User(string userName, UserType userType, string isVerified, string email, string[] schoolNames) {
+        public User(string userName, UserType userType, string isVerified, string email, List<string> schoolNames) {
             this.userName = userName;
             this.userType = userType;
             this.isVerified = isVerified;
             this.email = email;
             this.schoolNames = schoolNames;
             this.messages = new List<string>();
-        }
-
-        public bool CanChatIn(string schoolName) {
-            var index = Array.FindIndex(schoolNames, x => x == schoolName);
-            return index != -1;
         }
 
         public void SendMessageHistory() {
