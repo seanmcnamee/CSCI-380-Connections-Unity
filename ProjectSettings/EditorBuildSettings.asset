@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Verify.unity
     guid: b90bdb81e1ff1ab46a02611c190c5581
+  - enabled: 1
+    path: Assets/Scenes/Email_sending.unity
+    guid: 2d3bcd7e7671dfb4c818068958f6af5e
   m_configObjects: {}
