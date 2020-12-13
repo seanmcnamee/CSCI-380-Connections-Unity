@@ -29,6 +29,8 @@ namespace Page
         [SerializeField]
         private InputField advisorSchool;
         [SerializeField]
+        private Toggle IsCollege;
+        [SerializeField]
         private Dropdown schoolDropDown;
         [SerializeField]
         private Text textShowingSchools;
@@ -50,64 +52,50 @@ namespace Page
             collegeRooms.Insert(0, chatrooms);
             schoolDropDown.AddOptions(collegeRooms);
             conn.closeConenction();
+            UserTypeSet();
         }
 
         public void UserTypeSet() {
-            Queries conn;
-            List<string> homeSchoolsList;
-            switch (userType.value) {
-                case 1:
-                    //High School
-                    advisorSchool.text = "";
-                    schoolDropDown.interactable = true;
-                    submit.interactable = false;
-                    advisorSchool.interactable = false;
-                    homeSchool.interactable = true;
-                    conn = new Queries();
-                    homeSchool.ClearOptions();
-                    homeSchoolsList = conn.getAllSchools(false);
-                    homeSchoolsList.Insert(0, homeSchoolText);
-                    homeSchool.AddOptions(homeSchoolsList);
-                    conn.closeConenction();
-                    break;
-                case 2:
-                    //Moderator
-                    schools.Clear();
-                    setTextForSchools();
-                    advisorSchool.text = "";
-                    schoolDropDown.interactable = false;
-                    submit.interactable = true;
-                    advisorSchool.interactable = false;
-                    homeSchool.interactable = true;
-                    conn = new Queries();
-                    homeSchool.ClearOptions();
-                    homeSchoolsList = conn.getAllSchools(true);
-                    homeSchoolsList.Insert(0, homeSchoolText);
-                    homeSchool.AddOptions(homeSchoolsList);
-                    conn.closeConenction();
-                    break;
-                case 3:
-                    //Admin
-                    schools.Clear();
-                    setTextForSchools();
+            showAdvisorInput(userType.value == 3);
+            showHomeSchools(userType.value == 1 || userType.value == 2);
+            showChatSchools(userType.value == 1);
+            showSubmit(userType.value == 2 || userType.value == 3);
 
-                    schoolDropDown.interactable = false;
-                    submit.interactable = true;
-                    advisorSchool.interactable = true;
-                    homeSchool.interactable = false;
-                    break;
-                default:
-                    schools.Clear();
-                    setTextForSchools();
-                    advisorSchool.text = "";
+            setTextForSchools();
+        }
 
-                    submit.interactable = false;
-                    advisorSchool.interactable = false;
-                    homeSchool.interactable = false;
-                    schoolDropDown.interactable = false;
-                    break;
+        private void showAdvisorInput(bool show) {
+            //advisorSchool.interactable = show;
+            if (!show) {
+                advisorSchool.text = "";
             }
-            
+            advisorSchool.gameObject.SetActive(show);
+            IsCollege.gameObject.SetActive(show);
+        }
+
+        private void showChatSchools(bool show) {
+            if (!show) {
+                schools.Clear();
+            }
+            schoolDropDown.gameObject.SetActive(show);
+        }
+
+        private void showHomeSchools(bool show) {
+            if (show) {
+                Queries conn = new Queries();
+                homeSchool.ClearOptions();
+                List<string> homeSchoolsList = conn.getAllSchools(false);
+                homeSchoolsList.Insert(0, homeSchoolText);
+                homeSchool.AddOptions(homeSchoolsList);
+                conn.closeConenction();
+            }
+            //homeSchool.interactable = true;
+
+            homeSchool.gameObject.SetActive(show);
+        }
+
+        private void showSubmit(bool show) {
+            submit.gameObject.SetActive(show);
         }
 
 
@@ -126,7 +114,7 @@ namespace Page
                 setTextForSchools();
             }
 
-            submit.interactable = (schools.Count > 0);
+            showSubmit(schools.Count > 0);
             schoolDropDown.value = 0;
         }
 
@@ -171,7 +159,7 @@ namespace Page
             //Make sure above information isn't null
 
             if (!String.IsNullOrEmpty(strfirstName) && !String.IsNullOrEmpty(strlastName) && !String.IsNullOrEmpty(struserPassword) && !String.IsNullOrEmpty(strEmail) && (intUserType > 0) && (intUserType < 4) && (schools.Count > 0)) {
-                Authenticator.Register(strfirstName, strlastName, struserPassword, ((User.UserType) intUserType), strEmail, strhomeSchool, schools);
+                Authenticator.Register(strfirstName, strlastName, struserPassword, ((User.UserType) intUserType), strEmail, strhomeSchool, schools, IsCollege.isOn);
                 SceneManager.LoadScene(menuSwitch);
             }
             // firstName,  lastName,  password, userType,  email,  homeSchool, string[] schools

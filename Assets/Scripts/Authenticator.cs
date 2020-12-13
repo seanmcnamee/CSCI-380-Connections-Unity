@@ -13,7 +13,7 @@ namespace SecAuth
     {
         private static System.Random randomNum = new System.Random();
 
-        public static void Register(string firstName, string lastName, string password, User.UserType userType, string email, string homeSchool, List<string> schools) {
+        public static void Register(string firstName, string lastName, string password, User.UserType userType, string email, string homeSchool, List<string> schools, bool isCollege) {
             password = PasswordEncryption(password);
             string verificationCode = GenerateVerificationCode();
 
@@ -41,7 +41,7 @@ namespace SecAuth
                 emailOfVerifier = conn.getAdvisorEmail(homeSchool);
             } else {
                 // TODO get email of developer (search for developer userType)
-                conn.insertSchool(homeSchool, firstName, lastName);
+                conn.insertSchool(homeSchool, firstName, lastName, isCollege);
                 emailOfVerifier = conn.getDeveloperEmail();
             }
 

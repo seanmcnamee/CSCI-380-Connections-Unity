@@ -58,8 +58,9 @@ namespace DB {
         }
 
         //Working with variables
-        public void insertSchool(string school, string firstName, string lastName){
-            string insertSchool = "insert into `csci380`.`school` (school, advisorFirstName, advisorLastName) VALUES ('" + school + "', '" + firstName + "', '" + lastName + "')";
+        public void insertSchool(string school, string firstName, string lastName, bool isCollege) {
+            int intCollege = isCollege ? 1 : 0;
+            string insertSchool = "insert into `csci380`.`school` (school, advisorFirstName, advisorLastName, isCollege) VALUES ('" + school + "', '" + firstName + "', '" + lastName + "', " + intCollege + ")";
             prepareAndRunStatement(insertSchool);
         }
 
