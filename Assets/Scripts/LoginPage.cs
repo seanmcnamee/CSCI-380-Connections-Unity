@@ -21,27 +21,33 @@ namespace Page
 
         public void Login() {
             //Login with the provided credentials
-            string username = firstName.text + lastName.text;
-            string userPassword = password.text;
+            string strFirstName = firstName.text;
+            string strLastName = lastName.text;
+            string strPassword = password.text;
 
 
 
 
-            Debug.Log("User-pass: " + username + ", " + userPassword);
-            SceneInstanceControl.User = Authenticator.Login(firstName.text, lastName.text, userPassword);
+            Debug.Log("User-pass: " + strFirstName + " " + strLastName + ", " + strPassword);
 
-            bool isLoggedInAndVerified = SceneInstanceControl.User != null && SceneInstanceControl.User.IsVerified();
+            if (Authenticator.IsValidString(strFirstName) && Authenticator.IsValidString(strLastName) && Authenticator.IsValidString(strPassword)) {
+                SceneInstanceControl.User = Authenticator.Login(strFirstName, strLastName, strPassword);
 
-            if (isLoggedInAndVerified) {
-                //ChangeToEncrpted();
-                response.text = "";
-                SceneManager.LoadScene(menuSwitch);
-            } else {
-                if (SceneInstanceControl.User == null) {
-                    response.text = "Invalid Credentials, Try again";
+                bool isLoggedInAndVerified = SceneInstanceControl.User != null && SceneInstanceControl.User.IsVerified();
+
+                if (isLoggedInAndVerified) {
+                    //ChangeToEncrpted();
+                    response.text = "";
+                    SceneManager.LoadScene(menuSwitch);
                 } else {
-                    response.text = "Not yet verified. Contact your advisor";
+                    if (SceneInstanceControl.User == null) {
+                        response.text = "Invalid Credentials, Try again";
+                    } else {
+                        response.text = "Not yet verified. Contact your advisor";
+                    }
                 }
+            } else {
+                response.text = "Something isn't filled out correctly";
             }
         }
 

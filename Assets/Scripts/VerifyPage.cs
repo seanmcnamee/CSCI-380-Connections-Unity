@@ -22,12 +22,16 @@ namespace Page
             string strLastName = lastName.text;
             string strVerificationCode = verificationCode.text;
 
-            bool success = Authenticator.VerifyAccount(strFirstName, strLastName, strVerificationCode);
+            if (Authenticator.IsValidString(strFirstName) && Authenticator.IsValidString(strLastName) && Authenticator.IsValidString(strVerificationCode)) {
+                bool success = Authenticator.VerifyAccount(strFirstName, strLastName, strVerificationCode);
 
-            if (success) {
-                response.text = "Verified.";
+                if (success) {
+                    response.text = "Verified.";
+                } else {
+                    response.text = "Invalid Credentials, Try again";
+                }
             } else {
-                response.text = "Invalid Credentials, Try again";
+                response.text = "Something isn't filled out correctly";
             }
         }
 

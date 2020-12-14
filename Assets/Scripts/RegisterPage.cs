@@ -154,13 +154,14 @@ namespace Page
 
             //Make sure above information isn't null
 
-            if (!String.IsNullOrEmpty(strfirstName) && !String.IsNullOrEmpty(strlastName) && !String.IsNullOrEmpty(struserPassword) && !String.IsNullOrEmpty(strEmail) && Authenticator.IsValidEmail(strEmail+"") && (intUserType > 0) && (intUserType < 4) && (schools.Count > 0)) {
+            if (Authenticator.IsValidString(strfirstName) && Authenticator.IsValidString(strlastName) && Authenticator.IsValidString(struserPassword) && Authenticator.IsValidString(strEmail) && Authenticator.IsValidEmail(strEmail) && (intUserType > 0) && (intUserType < 4) && (schools.Count > 0)) {
                 Authenticator.Register(strfirstName, strlastName, struserPassword, ((User.UserType) intUserType), strEmail, strhomeSchool, schools, IsCollege.isOn);
                 SceneManager.LoadScene(menuSwitch);
+            } else {
+                textShowingSchools.text = "Something isn't filled out correctly";
             }
             // firstName,  lastName,  password, userType,  email,  homeSchool, string[] schools
             
-
         }
     }
 }

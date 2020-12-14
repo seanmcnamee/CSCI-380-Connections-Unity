@@ -95,6 +95,10 @@ namespace SecAuth
             }
         }
 
+        public static bool IsValidString(string str) {
+            return (!String.IsNullOrEmpty(str) && !str.Contains(";"));
+        }
+
         public static bool VerifyAccount(string firstName, string lastName, string verificationCode) {
             Queries conn = new Queries();
 
