@@ -45,16 +45,6 @@ namespace Page
   
         public static List<string> schools = new List<string>();
 
-        void Start() {
-            Queries conn = new Queries();
-            schoolDropDown.ClearOptions();
-            List<string> collegeRooms = conn.getAllSchools(true);
-            collegeRooms.Insert(0, chatrooms);
-            schoolDropDown.AddOptions(collegeRooms);
-            conn.closeConenction();
-            UserTypeSet();
-        }
-
         public void UserTypeSet() {
             showAdvisorInput(userType.value == 3);
             showHomeSchools(userType.value == 1 || userType.value == 2);
@@ -98,6 +88,16 @@ namespace Page
             submit.gameObject.SetActive(show);
         }
 
+        void Start() {
+            Queries conn = new Queries();
+            schoolDropDown.ClearOptions();
+            List<string> collegeRooms = conn.getAllSchools(true);
+            collegeRooms.Insert(0, chatrooms);
+            schoolDropDown.AddOptions(collegeRooms);
+            conn.closeConenction();
+            UserTypeSet();
+        }
+
         public void AddSchool() {
             Debug.Log(schools.Count);
 
@@ -137,30 +137,21 @@ namespace Page
             int intUserType = userType.value;
 
             string strhomeSchool = "";
-            if (intUserType == 2) {
+            if (intUserType == 3) {
                 //Only advisors input their own school
                 strhomeSchool = advisorSchool.text;
             } else if (homeSchool.value > 0) { //All other users choose from the dropdown (0 isn't allowed)
                     strhomeSchool = homeSchool.captionText.text;
             }
-
-            Debug.Log("Trying to register");
-            Debug.Log(strfirstName + ", " + strlastName + ", " + strEmail + ", " + intUserType + ", " + strhomeSchool + ", " + schools.Count);
             
-            Debug.Log("Schools:");
-            foreach (string school in schools) {
-                Debug.Log("s: " + school);
-            }
-
-            //Make sure above information isn't null
-
-            if (Authenticator.IsValidString(strfirstName) && Authenticator.IsValidString(strlastName) && Authenticator.IsValidString(struserPassword) && Authenticator.IsValidString(strEmail) && Authenticator.IsValidEmail(strEmail) && (intUserType > 0) && (intUserType < 4) && (schools.Count > 0)) {
+            //Make sure above information isn't bad
+            if (Authenticator.IsValidString(strfirstName) && Authenticator.IsValidString(strlastName) && Authenticator.IsValidString(struserPassword) && 
+                                            Authenticator.IsValidString(strEmail) && Authenticator.IsValidEmail(strEmail) && (intUserType > 0) && (intUserType < 4)) {
                 Authenticator.Register(strfirstName, strlastName, struserPassword, ((User.UserType) intUserType), strEmail, strhomeSchool, schools, IsCollege.isOn);
                 SceneManager.LoadScene(menuSwitch);
             } else {
                 textShowingSchools.text = "Something isn't filled out correctly";
             }
-            // firstName,  lastName,  password, userType,  email,  homeSchool, string[] schools
             
         }
     }

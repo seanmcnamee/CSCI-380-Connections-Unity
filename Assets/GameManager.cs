@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
                 if (chatBox.text.ToLower() == "hi" || chatBox.text.ToLower() == "hello" || chatBox.text.ToLower() == "hello?")
                 {
                     SendMessageToChat("Admin: Hello", Message.MessageType.info);
-                }else if (chatBox.text.ToLower() == "how are you doing?" || chatBox.text.ToLower() == "how are you doing")
+                }else if (chatBox.text.ToLower() == "how are you doing?" || chatBox.text.ToLower() == "how are you doing" || chatBox.text.ToLower() == "how u doin" || chatBox.text.ToLower() == "ayyo whats poppin")
                 {
                     SendMessageToChat("Admin: I am doing well, how about you?", Message.MessageType.info);
                 }
